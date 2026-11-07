@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.Comparator;
 
 public class DronManagerImpl implements DronManager {
-    private static DronManagerImpl instance; // SINGLETOONNN -> INSTANCIA PRIVADA ESTÁTICA
+    private static DronManagerImpl instance; // SINGLETOONNN ->INSTANCIA PRIVADA ESTÁTICA
 
     private HashMap<String, Dron> drons;
     private HashMap<String, Pilot> pilots;
@@ -22,7 +22,7 @@ public class DronManagerImpl implements DronManager {
         drons = new HashMap<>();
         pilots = new HashMap<>();
         flightPlanList = new ArrayList<>();
-        almacen = new ArrayDeque<>();
+        almacen = new LinkedList<>();
     }
 
     public static DronManagerImpl getInstance()
@@ -207,8 +207,7 @@ public class DronManagerImpl implements DronManager {
     }
     @Override
     public FlightPlan createFlightPlan(String droneId, String pilotId, LocalDateTime start, double hours, List<Position> positions) {
-        logger.info("createFlightPlan(droneId=" + droneId + ", pilotId=" + pilotId + ", start=" + start
-                + ", hours=" + hours + ", positions=" + positions + ")");
+        logger.info("createFlightPlan(droneId=" + droneId + ", pilotId=" + pilotId + ", start=" + start + ", hours=" + hours + ", positions=" + positions + ")");
 
         if (start == null || hours <= 0) {
             logger.error("createFlightPlan -> fecha nula o duración no positiva");

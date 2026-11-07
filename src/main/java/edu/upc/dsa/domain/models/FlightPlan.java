@@ -24,12 +24,7 @@ public class FlightPlan {
         this.pilotId = pilotId;
         this.start = start;
         this.hours = hours;
-        this.positions = (positions != null) ? new ArrayList<>(positions) : new ArrayList<>();
-    }
-
-    public LocalDateTime getEnd() //
-    {
-        return start.plusMinutes((long) (hours * 60));
+        this.positions = (positions != null) ? new ArrayList<>(positions) : new ArrayList<>(); //si la lista de posiciones es nula, crea una vacía, sino utiliza la de la entrada del constructor
     }
 
     public boolean overlaps(FlightPlan fp)
@@ -49,6 +44,11 @@ public class FlightPlan {
     public String getPilotId() { return pilotId; }
 
     public LocalDateTime getStart() { return start; }
+
+    public LocalDateTime getEnd()
+    {
+        return start.plusMinutes((long) (hours * 60));
+    }
 
     public double getHours() { return hours; }
 

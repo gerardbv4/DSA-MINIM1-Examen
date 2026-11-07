@@ -1,24 +1,25 @@
 package edu.upc.dsa;
 
+import edu.upc.dsa.domain.repository.DronManager;
+import edu.upc.dsa.domain.repository.DronManagerImpl;
 import io.swagger.jaxrs.config.BeanConfig;
+import org.apache.log4j.Logger;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-
-import edu.upc.dsa.domain.repository.DronManager;
-import edu.upc.dsa.domain.repository.DronManagerImpl;
 
 import java.io.IOException;
 import java.net.URI;
 
 /**
  * Main class.
- *
  */
 public class Main {
     // Base URI the Grizzly HTTP server will listen on
     public static final String BASE_URI = "http://localhost:8080/dsaApp/";
+
+    private static final Logger logger = Logger.getLogger(Main.class);
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
@@ -26,7 +27,7 @@ public class Main {
      */
     public static HttpServer startServer() {
         // create a resource config that scans for JAX-RS resources and providers
-        // in edu.upc.dsa package
+        // in edu.upc.dsa.services package
         final ResourceConfig rc = new ResourceConfig().packages("edu.upc.dsa.services");
 
         rc.register(io.swagger.jaxrs.listing.ApiListingResource.class);
@@ -37,7 +38,7 @@ public class Main {
         beanConfig.setHost("localhost:8080");
         beanConfig.setBasePath("/dsaApp");
         beanConfig.setContact("support@example.com");
-        beanConfig.setDescription("REST API for Tracks Manager");
+        beanConfig.setDescription("REST API for Drones Manager");
         beanConfig.setLicenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html");
         beanConfig.setResourcePackage("edu.upc.dsa.services");
         beanConfig.setTermsOfServiceUrl("http://www.example.com/resources/eula");
@@ -49,22 +50,21 @@ public class Main {
         // exposing the Jersey application at BASE_URI
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }
-    /*
-    public static void loadInitialData() {
-        DronManager pm = DronManagerImpl.getInstance();
-        if (pm.size() == 0) {
-            pm.addProduct("C1", "Coca-cola zero", 2);
-            pm.addProduct("C2", "Coca-cola", 2.5);
-            pm.addProduct("B1", "Lomo queso", 3);
-            pm.addProduct("B2", "bacon queso", 3.5);
 
-            pm.addUser("NIF1", "El Chaval", "de la Peca", "chaval.peca@gmail.com");
-            pm.addUser("NIF2", "Manolo", "Vinilo", "manolo.vinilo@gmail.com");
-            pm.addUser("NIF3", "Paco", "Synth", "paco.synth@gmail.com");
-            pm.addUser("NIF4", "Rafa", "Theremín", "rafa.theremin@gmail.com");
+    public static void loadInitialData() {
+        logger.info("loadInitialData()");
+        DronManager dm = DronManagerImpl.getInstance();
+        if (dm.size() == 0) {
+            dm.addDron("D1", "Dron1", "F1", "Espinete 3");
+            dm.addDron("D2", "Dron2", "F2", "ChavalPeca 1");
+            dm.addDron("D3", "Dron3", "UPC", "EETAC 2.0");
+
+            dm.addPilot("P1", "Gerard", "Barrallo");
+            dm.addPilot("P2", "Izan", "Díaz");
+            dm.addPilot("P3", "Toni", "Oller");
         }
+        logger.info("loadInitialData -> drons: " + dm.numDrons() + ", pilots: " + dm.numPilots());
     }
-     */
 
     /**
      * Main method.
@@ -72,18 +72,17 @@ public class Main {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        //loadInitialData();
+        loadInitialData();
         final HttpServer server = startServer();
 
         StaticHttpHandler staticHttpHandler = new StaticHttpHandler("./public/");
         server.getServerConfiguration().addHttpHandler(staticHttpHandler, "/");
 
-
-        System.out.println(String.format("Jersey app started with WADL available at "
-                + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
+        logger.info("Jersey app started with WADL available at " + BASE_URI
+                + "application.wadl. Hit enter to stop it...");
 
         System.in.read();
         server.stop();
+        logger.info("Server stopped");
     }
 }
-

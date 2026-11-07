@@ -12,7 +12,7 @@ public class Dron {
     private  boolean inAlmacen;
     private List<FlightPlan> flightPlanList;
 
-    //public Product() {} //CONSTRUCTOR VACÍO
+    public Dron() {} //CONSTRUCTOR VACÍO
 
     //CONSTRUCTOR PÚBLICO DE LA CLASE
 
@@ -24,36 +24,19 @@ public class Dron {
         this.flightPlanList = new ArrayList<FlightPlan>();
     }
 
-    /*
-    public Dron() {
-        this.id = RandomUtils.getId();
-    }
-
-    public Dron(String name, String fabricante, String Modelo) {
-        this(null, name, fabricante, modelo);
-    }
-
-    public Dron(String id, String name, String fabricante, String Modelo) {
-        this();
-        if (id != null && !id.trim().isEmpty()) {
-            this.id = id;
-        }
-        this.name = name;
-        this.fabricante = fabricante;
-        this.modelo = modelo;
-    }
-    */
-
-
     @Override
     public String toString()  //TO STRING PARA HACER LEGIBLE EL PRODUCT
     {
         return "Dron[id=" + id + ", name=" + name + ", fabricante=" + fabricante + ", modelo=" + modelo + " , horas=" + hours + ", enAlmacén=" + inAlmacen + ", planes=" + flightPlanList + "]";
     }
 
-    //SETTERS & GETTERS
-
     public void addHours(double hours){ this.hours += hours; }
+
+    public void addFlightPlan(FlightPlan f){
+        flightPlanList.add(f);
+    }
+
+    //SETTERS & GETTERS
 
     public double getHours() { return hours; }
 
@@ -69,12 +52,12 @@ public class Dron {
 
     public boolean isInAlmacen() {return inAlmacen; }
 
-    public void addFlightPlan(FlightPlan f){
-        flightPlanList.add(f);
-    }
     public List<FlightPlan> getFlightPlans()
     {
         return this.flightPlanList;
     }
+    public String getFabricante() { return fabricante; }
+
+    public String getModelo() { return modelo; }
 
 }

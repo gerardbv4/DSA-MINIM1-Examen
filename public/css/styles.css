@@ -1,5 +1,5 @@
 /* Contenedor principal */
-#products {
+#drons {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 25px;
@@ -9,7 +9,7 @@
 }
 
 /* La Card Real */
-.product-card {
+.dron-card {
     background: #ffffff;
     border-radius: 16px; /* Bordes más circulares */
     padding: 24px;
@@ -24,14 +24,14 @@
 }
 
 /* Efecto al pasar el ratón: se eleva y resalta el borde */
-.product-card:hover {
+.dron-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.12);
     border-color: #3498db;
 }
 
 /* Decoración: Un pequeño círculo de color de fondo */
-.product-card::before {
+.dron-card::before {
     content: "🎵";
     position: absolute;
     top: -10px;
@@ -42,7 +42,7 @@
 }
 
 /* Título de la canción */
-.product-card h3 {
+.dron-card h3 {
     margin: 0;
     font-size: 1.4rem;
     color: #1a1a1a;
@@ -51,7 +51,7 @@
 }
 
 /* Nombre del artista */
-.product-card p {
+.dron-card p {
     margin: 12px 0;
     font-size: 1rem;
     color: #666;
@@ -59,14 +59,14 @@
     align-items: center;
 }
 
-.product-card p::before {
+.dron-card p::before {
     content: "👤";
     margin-right: 8px;
     font-size: 0.9rem;
 }
 
 /* El ID en una "etiqueta" al final */
-.product-card small {
+.dron-card small {
     margin-top: auto;
     background: #f0f2f5;
     padding: 4px 12px;
