@@ -17,6 +17,7 @@ public class Pilot {
         this.surname = surname;
         this.flightPlans = new ArrayList<FlightPlan>();
     }
+    public Pilot() {}
 
     @Override
     public String toString() //TO STRING PARA HACER LEGIBLE EL USER
